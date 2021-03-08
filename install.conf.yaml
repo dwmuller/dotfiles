@@ -17,4 +17,5 @@
     - [git submodule update --init --recursive, Installing submodules]
     - 
       description: Linking winhome in WSL
-      command: '~/.dotfiles/bin/wsl/link-winhome'
+      command: bash -c ~/.dotfiles/bin/wsl/link-winhome
+

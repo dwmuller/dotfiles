@@ -1,8 +1,9 @@
 #!/bin/bash
 # This is typically run by Dotbot install.
 
-# If we're not running in a WSL2 Linu shell, just exit.
-[[ $(uname -r) =~ "WSL2" ]] || exit
-
-# Make ~/winhome point to our Windows home directory.
-ln -sf $(wslpath -u $(powershell.exe Write-Host -NoNewline "\$Env:UserProfile")) ~/winhome
+# Only do this if we're running in a WSL2 Linux shell.
+if [[ $(uname -r) =~ "WSL2" ]]
+then
+    # Make ~/winhome point to our Windows home directory.
+    ln -sf $(wslpath -u $(powershell.exe Write-Host -NoNewline "\$Env:UserProfile")) ~/winhome
+fi
