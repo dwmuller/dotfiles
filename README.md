@@ -10,8 +10,21 @@ My public Linux configuration files, using the [DotBot](https://github.com/anish
   - `cinst npiperelay -y`
 - Clone this repo to wherever:
   - `git clone git@github.com:dwmuller/dotfiles.git --recursive`
-- Install:
+- Install on Windows, to configure bash in Git for Windows:
+  - Run bash as administrator
+  - `export MSYS=winsymlinks:nativestrict`
+  - `cd dotfiles`
+  - `./install`
+- Install in other environments:
   - `cd dotfiles`
   - `./install`
 - Address any issues (e.g. default dotfiles in the way) and repeat.
 - Move on to real work.
+
+# To-do list
+
+- Better way to set up winhome link -- shows as a failure in inappropriate environments.
+- Local overrides
+- Look for additional dot files/directories
+- Do we like the prompt that we cribbed?
+- Consider .bash_logout
