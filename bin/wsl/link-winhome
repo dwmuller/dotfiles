@@ -1,0 +1,4 @@
+#!/bin/bash
+# Make ~/winhome point to our Windows home directory.
+# This is typically run by Dotbot install.
+ln -sf $(wslpath -u $(powershell.exe Write-Host -NoNewline "\$Env:UserProfile")) ~/winhome

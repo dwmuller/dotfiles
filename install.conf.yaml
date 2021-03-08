@@ -1,0 +1,24 @@
+# TODO: Local overrides
+# TODO: Look for other dot files/directories
+# TODO: Do we like the prompt that we cribbed?
+# TODO: Consider .bash_logout
+
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.bash:
+    ~/.bashrc:
+    ~/.bash_profile:
+    ~/.dotfiles: ''
+    ~/.inputrc:
+    ~/.shell:
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+    - 
+      description: Linking winhome in WSL
+      command: '[[ $(uname -r) =~ "WSL2" ]] && ~/.dotfiles/bin/wsl/link-winhome'

@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Manages a relay between a native windows OpenSSH agent, which uses
+# a well-known Windows named pipe, and a socket in the WSL system, 
+# providing SSH agent services to Linux programs.
+#
+# The KeePass plugin KeeAgent provides the named pipe if you check the
+# "Enable agent for Windows OpenSSH (experimental)" option.
+
+if [ -z "$SSH_AUTH_SOCK" ]
+then
+    echo "Please set SSH_AUTH_SOCK before calling this script." >> stderr
+    echo "Exiting." >> stderr
+    exit 2
+fi
+
+
+function get-agent-pid () {
+    sshpid=$(ss -ap | grep "$SSH_AUTH_SOCK")
+    sshpid=${sshpid//*pid=/}
+    sshpid=${sshpid%%,*}
+    echo $sshpid
+}
+
+function kill-agent () {
+    local sshpid="$(get-agent-pid)"
+
+    if [ -n "${sshpid}" ]
+    then 
+        echo "Killing existing SSH agent relay."
+        kill "${sshpid}"
+    fi
+}
+
+function start-agent () {
+    local RELAY="$(command -v npiperelay.exe)"
+
+    if [ -z "$RELAY" ]
+    then
+        echo "ERROR: Cannot start the SSH agent for WSL: npiperelay.exe not found." >> stderr
+        echo "       Please install the npiperelay chocolatey package on the Windows host." >> stderr
+        exit 3
+    fi
+
+    rm -f $SSH_AUTH_SOCK
+    # Use socat to invoke npiperelay as an intermediary between the Windows pipe of the
+    # Windows OpenSSH agent and a socket local to this WSL session.
+    ( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"${RELAY} -ei -s //./pipe/openssh-ssh-agent",nofork & ) >/dev/null 2>&1
+    echo "SSH agent relay started using $RELAY."
+}
+
+function maybe-start-agent () {
+    local sshpid="$(get-agent-pid)"
+    if [ -z "${sshpid}" ]
+    then
+        start-agent
+    fi
+}
+
+case "$1" in
+    -k) kill-agent ;;
+    -r) kill-agent ; start-agent ;;
+    -s) start-agent ;;
+    "") maybe-start-agent ;;
+    *) echo "Unrecognized argument: $1" ; exit 1
+esac
+
