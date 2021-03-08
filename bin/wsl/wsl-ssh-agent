@@ -9,8 +9,7 @@
 
 if [ -z "$SSH_AUTH_SOCK" ]
 then
-    echo "Please set SSH_AUTH_SOCK before calling this script." >> stderr
-    echo "Exiting." >> stderr
+    >&2 echo "ERROR: Please set SSH_AUTH_SOCK before calling this script."
     exit 2
 fi
 
@@ -22,31 +21,45 @@ function get-agent-pid () {
     echo $sshpid
 }
 
-function kill-agent () {
+function kill-agents () {
     local sshpid="$(get-agent-pid)"
 
-    if [ -n "${sshpid}" ]
-    then 
-        echo "Killing existing SSH agent relay."
+    while [ -n "${sshpid}" ]
+    do
         kill "${sshpid}"
-    fi
+        echo "Killing existing SSH agent relay, pid=${sshpid}."
+        sshpid="$(get-agent-pid)"
+    done
 }
 
-function start-agent () {
+function run-pipeline () {
     local RELAY="$(command -v npiperelay.exe)"
 
     if [ -z "$RELAY" ]
     then
-        echo "ERROR: Cannot start the SSH agent for WSL: npiperelay.exe not found." >> stderr
-        echo "       Please install the npiperelay chocolatey package on the Windows host." >> stderr
+        >&2 echo "ERROR: Cannot start the SSH agent for WSL: npiperelay.exe not found."
+        >&2 echo "       Please install the npiperelay chocolatey package on the Windows host."
         exit 3
     fi
-
+    if [ ! $(command -v socat) ]
+    then
+        >&2 echo "ERROR: Cannot start the SSH agent for WSL: socat not found."
+        exit 3
+    fi
     rm -f $SSH_AUTH_SOCK
     # Use socat to invoke npiperelay as an intermediary between the Windows pipe of the
     # Windows OpenSSH agent and a socket local to this WSL session.
-    ( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"${RELAY} -ei -s //./pipe/openssh-ssh-agent",nofork & ) >/dev/null 2>&1
-    echo "SSH agent relay started using $RELAY."
+    socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"${RELAY} -ei -s $1 //./pipe/openssh-ssh-agent",nofork
+}
+
+function start-agent () {
+    ( setsid run-pipeline & ) >/dev/null 2>&1
+    echo "SSH agent relay started."
+}
+
+function debug-agent () {
+    echo "Running SSH agent verbosely in-process."
+    run-pipeline -v &
 }
 
 function maybe-start-agent () {
@@ -58,9 +71,10 @@ function maybe-start-agent () {
 }
 
 case "$1" in
-    -k) kill-agent ;;
-    -r) kill-agent ; start-agent ;;
+    -k) kill-agents ;;
+    -r) kill-agents ; start-agent ;;
     -s) start-agent ;;
+    -d) kill-agents ; debug-agent ;;
     "") maybe-start-agent ;;
     *) echo "Unrecognized argument: $1" ; exit 1
 esac
