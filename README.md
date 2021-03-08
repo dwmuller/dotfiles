@@ -33,7 +33,7 @@ Note that your local copy of this repo can be anywhere you like. In the instruct
   - [Install chocolatey](https://chocolatey.org/install) if you haven't already, then restart your shell.
   - `cinst keepass keepass-plugin-keegent keepass-plugin-keeanywhere keepass-plugin-keepassotp -y`
   - `cinst git -y` # installs Git for Windows
-  - Run Git Bash as administrator (needed to create symlinks)
+  - Run Git Bash as administrator or with [Developer Mode enabled](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/), so that symlinks work:
   - `export MSYS=winsymlinks:nativestrict`
   - `git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles` # Use https so no creds needed yet.
   - `cd ~/dotfiles`

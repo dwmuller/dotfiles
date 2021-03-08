@@ -23,10 +23,17 @@ then
     fi
 fi
 
+if [[ "$(uname -s)" =~ "MINGW.*" ]]
+then
+	# Augment MSYS env variable to use native symlinks and fail
+	# if they're not available.
+	export MSYS="$MSYS winsymlinks:nativerestrict"
+fi
+
 # We really don't use Cygwin anymore ...
 if [[ "$(uname -s)" =~ "CYGWIN.*" ]]
 then
-	# Augment CYGWIN env variable to use native symlinks, and fail
+	# Augment CYGWIN env variable to use native symlinks and fail
 	# if they're not available.
 	export CYGWIN="$CYGWIN winsymlinks:nativerestrict"
 fi
