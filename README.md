@@ -45,7 +45,6 @@ Note: The MSYS variable will henceforth be set by my dotfiles, but you will stil
 
 # To-do list
 
-- Better way to set up winhome link -- shows as a failure in inappropriate environments.
 - Local overrides
 - Look for additional dot files/directories
 - Do we like the prompt that we cribbed?
