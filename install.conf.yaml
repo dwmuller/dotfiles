@@ -1,3 +1,4 @@
+# TODO: Add README.md 
 # TODO: Local overrides
 # TODO: Look for other dot files/directories
 # TODO: Do we like the prompt that we cribbed?
@@ -14,6 +15,7 @@
     ~/.bashrc:
     ~/.bash_profile:
     ~/.dotfiles: ''
+    ~/.gitconfig:
     ~/.inputrc:
     ~/.shell:
 
