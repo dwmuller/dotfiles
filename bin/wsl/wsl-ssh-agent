@@ -27,12 +27,13 @@ function kill-agents () {
     while [ -n "${sshpid}" ]
     do
         kill "${sshpid}"
-        echo "Killing existing SSH agent relay, pid=${sshpid}."
+        echo "Killed existing SSH agent relay, pid=${sshpid}."
+	sleep 1s
         sshpid="$(get-agent-pid)"
     done
 }
 
-function run-pipeline () {
+function check-pipeline () {
     local RELAY="$(command -v npiperelay.exe)"
 
     if [ -z "$RELAY" ]
@@ -46,20 +47,23 @@ function run-pipeline () {
         >&2 echo "ERROR: Cannot start the SSH agent for WSL: socat not found."
         exit 3
     fi
-    rm -f $SSH_AUTH_SOCK
-    # Use socat to invoke npiperelay as an intermediary between the Windows pipe of the
-    # Windows OpenSSH agent and a socket local to this WSL session.
-    socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"${RELAY} -ei -s $1 //./pipe/openssh-ssh-agent",nofork
+    #rm -f $SSH_AUTH_SOCK
 }
 
 function start-agent () {
-    ( setsid run-pipeline & ) >/dev/null 2>&1
+    check-pipeline
+    # Use socat to invoke npiperelay as an intermediary between the Windows pipe of the
+    # Windows OpenSSH agent and a socket local to this WSL session.
+    ( setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork,unlink-early EXEC:"npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork & ) #>/dev/null 2>&1
     echo "SSH agent relay started."
 }
 
 function debug-agent () {
     echo "Running SSH agent verbosely in-process."
-    run-pipeline -v &
+    check-pipeline
+    # Use socat to invoke npiperelay as an intermediary between the Windows pipe of the
+    # Windows OpenSSH agent and a socket local to this WSL session.
+    socat UNIX-LISTEN:$SSH_AUTH_SOCK,unlink-early EXEC:"npiperelay.exe -ei -s -v //./pipe/openssh-ssh-agent",nofork
 }
 
 function maybe-start-agent () {
