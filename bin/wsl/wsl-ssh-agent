@@ -47,7 +47,6 @@ function check-pipeline () {
         >&2 echo "ERROR: Cannot start the SSH agent for WSL: socat not found."
         exit 3
     fi
-    #rm -f $SSH_AUTH_SOCK
 }
 
 function start-agent () {
@@ -64,6 +63,7 @@ function debug-agent () {
     # Use socat to invoke npiperelay as an intermediary between the Windows pipe of the
     # Windows OpenSSH agent and a socket local to this WSL session.
     socat UNIX-LISTEN:$SSH_AUTH_SOCK,unlink-early EXEC:"npiperelay.exe -ei -s -v //./pipe/openssh-ssh-agent",nofork
+    echo "SSH agent stopped."
 }
 
 function maybe-start-agent () {
