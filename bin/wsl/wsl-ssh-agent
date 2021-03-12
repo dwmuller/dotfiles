@@ -74,11 +74,22 @@ function maybe-start-agent () {
     fi
 }
 
+function query-agent () {
+    local pid=$(get-agent-pid)
+    if [ -z $pid ]
+    then
+        echo "No agent process found."
+    else
+        echo "Agent running in process ${pid}"
+    fi
+}
+
 case "$1" in
     -k) kill-agents ;;
     -r) kill-agents ; start-agent ;;
     -s) start-agent ;;
     -d) kill-agents ; debug-agent ;;
+    -q) query-agent ;;
     "") maybe-start-agent ;;
     *) echo "Unrecognized argument: $1" ; exit 1
 esac
