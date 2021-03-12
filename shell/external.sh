@@ -23,15 +23,16 @@ then
     fi
 fi
 
-if [[ "$(uname -s)" =~ "MINGW.*" ]]
+if [[ "$(uname -s)" =~ "MINGW" ]]
 then
 	# Augment MSYS env variable to use native symlinks and fail
 	# if they're not available.
 	export MSYS="$MSYS winsymlinks:nativerestrict"
+	export SSH_AUTH_SOCK=~/.ssh/keeagent
 fi
 
 # We really don't use Cygwin anymore ...
-if [[ "$(uname -s)" =~ "CYGWIN.*" ]]
+if [[ "$(uname -s)" =~ "CYGWIN" ]]
 then
 	# Augment CYGWIN env variable to use native symlinks and fail
 	# if they're not available.
