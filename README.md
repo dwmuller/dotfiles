@@ -66,7 +66,7 @@ In Git Bash as administrator, or with [Developer Mode enabled](https://blogs.win
 ## All environments
 Once SSH agent is set up and working, change the origin of this repository to use SSH instead of HTTPS, to avoid being asked for GitHub credentials:
 
-        git remote set-url origin gh:dmuller/dotfiles
+        git remote set-url origin gh:dwmuller/dotfiles
 
 
 Note: The MSYS variable will henceforth be set by my dotfiles, but you will still have to update installs from an admin shell.
