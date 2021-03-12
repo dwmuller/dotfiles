@@ -10,3 +10,5 @@ source ~/.shell/bootstrap.sh
 source ~/.shell/external.sh
 source ~/.shell/aliases.sh
 source ~/.bash/prompt.bash
+source ~/.nvm/nvm.sh
+source ~/.nvm/bash_completion

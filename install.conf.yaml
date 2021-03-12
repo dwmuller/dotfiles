@@ -11,11 +11,10 @@
     ~/.dotfiles: ''
     ~/.gitconfig:
     ~/.inputrc:
+    ~/.nvm:
     ~/.shell:
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    - 
-      description: Linking winhome in WSL
-      command: bash -c ~/.dotfiles/bin/wsl/link-winhome
+    - [bash -c ~/.dotfiles/bin/wsl/link-winhome, Linking winhome in WSLS]
 
