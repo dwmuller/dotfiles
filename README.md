@@ -9,36 +9,65 @@ Note that your local copy of this repo can be anywhere you like. In the instruct
 
 ## A simple Linux (Debian-derived) environment:
 
-  - `sudo apt install git`
-  - `git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles` # Use https so no creds needed yet.
-  - `cd ~/dotfiles`
-  - `./install`
-  - Fix problems that arise, repeat `./install`
+In a shell, pull down this repository and run install:
+
+        sudo apt install git
+        git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles # Use https so no creds needed yet.
+        cd ~/dotfiles
+        ./install
+
+Fix problems that arise, repeat `./install`
 
 ## In a WSL2 (Debian-derived) Linux environment 
-- On the Windows host in a privileged Powershell:
+On the Windows host in a Powershell as administrator:
   - [Install chocolatey](https://chocolatey.org/install) if you haven't already, then restart your shell.
-  - `cinst keepass keepass-plugin-keegent keepass-plugin-keeanywhere keepass-plugin-keepassotp -y`
+  - Install KeePass and KeeAgent:
+  
+        cinst keepass keepass-plugin-keegent keepass-plugin-keeanywhere keepass-plugin-keepassotp -y
+
   - Enable agent for Windows OpenSSH in KeeAgent options.
-  - `cinst npiperelay -y`
-- In the Linux environment, Install git in the Linu environment:
-  - `sudo apt install git`
-  - `git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles` # Use https so no creds needed yet.
-  - `cd ~/dotfiles`
-  - `./install`
+  - Install npiperelay utility, used to make SSH agent available in WSL 2: 
+
+        cinst npiperelay -y
+
+In the Linux environment:
+- Install git:
+
+        `sudo apt install git`
+
+ - Pull down this repository and run install:
+
+        export MSYS=winsymlinks:nativestrict
+        git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles` # Use https so no creds needed yet.
+        cd ~/dotfiles
+        ./install
   - Fix problems that arise, repeat `./install`
 
 ## On Windows to support Git for Windows
--In a privileged Powershell:
+In a Powershell, running as administrator:
   - [Install chocolatey](https://chocolatey.org/install) if you haven't already, then restart your shell.
-  - `cinst keepass keepass-plugin-keegent keepass-plugin-keeanywhere keepass-plugin-keepassotp -y`
-  - `cinst git -y` # installs Git for Windows
-  - Run Git Bash as administrator or with [Developer Mode enabled](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/), so that symlinks work:
-  - `export MSYS=winsymlinks:nativestrict`
-  - `git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles` # Use https so no creds needed yet.
-  - `cd ~/dotfiles`
-  - `./install`
+  - Install KeePass and KeeAgent:
+  
+        cinst keepass keepass-plugin-keegent keepass-plugin-keeanywhere keepass-plugin-keepassotp -y
+
+  - Install Git for Windows:
+
+        cinst git -y` # installs Git for Windows
+
+In Git Bash as administrator, or with [Developer Mode enabled](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/), so that symlinks work:
+  - Pull down this repository and run install:
+
+        export MSYS=winsymlinks:nativestrict
+        git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles` # Use https so no creds needed yet.
+        cd ~/dotfiles
+        ./install
   - Fix problems that arise, repeat `./install`
+
+## All environments
+Once SSH agent is set up and working, change the origin of this repository to use SSH instead of HTTPS, to avoid being asked for GitHub credentials:
+```
+git remote set-url origin gh:dmuller/dotfiles
+```
 
 Note: The MSYS variable will henceforth be set by my dotfiles, but you will still have to update installs from an admin shell.
 
