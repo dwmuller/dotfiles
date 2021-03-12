@@ -38,7 +38,7 @@ In the Linux environment:
  - Pull down this repository and run install:
 
         export MSYS=winsymlinks:nativestrict
-        git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles` # Use https so no creds needed yet.
+        git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles # Use https so no creds needed yet.
         cd ~/dotfiles
         ./install
   - Fix problems that arise, repeat `./install`
