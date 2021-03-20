@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo -n $1 |
+	awk '{for (y=0;y<127;y++) if (y!=37) gsub(sprintf("%%%02x|%%%02X",y,y), y==38 ? "\\&" : sprintf("%c", y));gsub(/%25/, "%");print}'
+
