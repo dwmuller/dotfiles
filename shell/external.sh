@@ -38,3 +38,10 @@ then
 	# if they're not available.
 	export CYGWIN="$CYGWIN winsymlinks:nativerestrict"
 fi
+
+# X Window
+if [ $IS_WSL2 ]
+then
+    export DISPLAY="$WSL_HOST_IP:0"
+fi
+
