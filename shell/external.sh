@@ -14,7 +14,7 @@ unset MAILCHECK
 #
 if [[ -z "$SSH_AUTH_SOCK" ]]
 then
-    if [[ "$(uname -r)" =~ "WSL2" ]]
+    if [ $IS_WSL2 ]
     then
         # We appear to be running a Linux shell under WSL2. Set up the
         # forwarding agent.
@@ -23,7 +23,7 @@ then
     fi
 fi
 
-if [[ "$(uname -s)" =~ "MINGW" ]]
+if [ $IS_MSYS ]
 then
 	# Augment MSYS env variable to use native symlinks and fail
 	# if they're not available.
@@ -32,7 +32,7 @@ then
 fi
 
 # We really don't use Cygwin anymore ...
-if [[ "$(uname -s)" =~ "CYGWIN" ]]
+if [ $IS_CYGWIN ]
 then
 	# Augment CYGWIN env variable to use native symlinks and fail
 	# if they're not available.

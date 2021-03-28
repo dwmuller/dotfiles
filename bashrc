@@ -4,6 +4,7 @@
 # BASH-specific definitions, and for things like aliases and functions
 # which are not inherited by child processes.
 
+source ~/.shell/introspect.sh
 source ~/.shell/functions.sh
 source ~/.bash/settings.bash
 source ~/.shell/bootstrap.sh
