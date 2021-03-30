@@ -27,7 +27,7 @@ if [ $IS_MSYS ]
 then
 	# Augment MSYS env variable to use native symlinks and fail
 	# if they're not available.
-	export MSYS="$MSYS winsymlinks:nativerestrict"
+	export MSYS="$MSYS winsymlinks:nativestrict"
 	export SSH_AUTH_SOCK=~/.ssh/keeagent
 fi
 
@@ -36,7 +36,7 @@ if [ $IS_CYGWIN ]
 then
 	# Augment CYGWIN env variable to use native symlinks and fail
 	# if they're not available.
-	export CYGWIN="$CYGWIN winsymlinks:nativerestrict"
+	export CYGWIN="$CYGWIN winsymlinks:nativestrict"
 fi
 
 # X Window
