@@ -1,3 +1,7 @@
 [user]
 	name = Dan Muller
 	email = dan@connecttma.com
+
+[url "git@github.com:/ConnectTMA/"]
+	insteadOf = ctma:
+
