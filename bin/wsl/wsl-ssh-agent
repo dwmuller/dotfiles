@@ -84,13 +84,26 @@ function query-agent () {
     fi
 }
 
+function print-help () {
+    cat <<END
+argument:
+  <none> # Start an agent if none running.
+  -k  # Kills any wsl-ssh-agent process
+  -s  # Starts a new agent
+  -r  # Restart agent; similar to -k followed by -s 
+  -q  # Query: Prints pid of running agent, if any.
+  -d  # Kills agents and then queries, sim. to -k -q
+END
+}
+
 case "$1" in
     -k) kill-agents ;;
     -r) kill-agents ; start-agent ;;
     -s) start-agent ;;
     -d) kill-agents ; debug-agent ;;
     -q) query-agent ;;
+    -h) print-help ;;
     "") maybe-start-agent ;;
-    *) echo "Unrecognized argument: $1" ; exit 1
+    *) echo "Unrecognized argument: $1" ; print-help ; exit 1 ;;
 esac
 
