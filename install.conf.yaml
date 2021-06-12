@@ -16,5 +16,5 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    - [bash -c ~/.dotfiles/bin/wsl/link-winhome, Linking winhome in WSLS]
+    - [bash -c ~/.dotfiles/bin/wsl/link-winhome, Linking winhome in WSL2]
 
