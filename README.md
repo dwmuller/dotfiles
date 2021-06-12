@@ -81,6 +81,14 @@ To activate any changes in Bash after running './install', without restarting th
   - vim
   - emacs
 
+# Notes on specific files or directories
+
+## config.xlaunch
+Configuration for the XLaunch X server for Windows, which you can install using Chocolatey. Set up a shortcut using this Target:
+```
+"C:\Program Files\VcXsrv\xlaunch.exe" -run "C:\Users\danm\dotfiles\config.xlaunch"
+```
+
 # Troubleshooting
 
 ## WSL2: Git doesn't seem to read file modes correctly
