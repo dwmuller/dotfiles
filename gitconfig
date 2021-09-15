@@ -49,3 +49,8 @@
 [includeIf "gitdir/i:~/ctma/"]
 	path = ~/.dotfiles/ctma/gitconfig
 
+[diff]
+	tool = code
+
+[difftool "code"]
+	cmd = code --wait --diff "$LOCAL" "$REMOTE"
