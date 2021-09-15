@@ -19,10 +19,11 @@ In a shell, pull down this repository and run install:
 Fix problems that arise, repeat `./install`
 
 ## In a WSL2 (Debian-derived) Linux environment 
-On the Windows host in a Powershell as administrator:
+
+On the Windows host, in Powershell, as an administrator, install some prerequisites:
   - [Install chocolatey](https://chocolatey.org/install) if you haven't already, then restart your shell.
   - Install KeePass and KeeAgent:
-  
+
         cinst keepass keepass-plugin-keegent keepass-plugin-keeanywhere keepass-plugin-keepassotp -y
 
   - Enable agent for Windows OpenSSH in KeeAgent options.
@@ -30,18 +31,32 @@ On the Windows host in a Powershell as administrator:
 
         cinst npiperelay -y
 
-In the Linux environment:
+In the Linux environment, install prerequisites. A new WSL2 distro will not be able to communicate over a VPN, so turn off the VPN while you set things up.
+
 - Install git:
 
         sudo apt install git
 
- - Pull down this repository and run install:
+- Pull down this repository:
 
         git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles  # Use https so no creds needed yet.
         cd ~/dotfiles
+
+- If you haven't done so already, create /etc/wsl.conf. This contains some boot-time fixes.
+
+        sudo cp ./wsl.conf /etc/ws.conf
+
+If you had to create wsl.conf, you can start the VPN connection now, but you have to restart the WSL environment. From PowerShell on the host:
+
+        wsl -t "Ubuntu"
+
+Now, back in a (possibly new) WSL2 terminal:
+- Run install:
+
+        cd ~/dotfiles
         ./install
 
-  - Fix problems that arise, repeat `./install`
+Fix any problems that arise, and repeat `./install`
 
 ## On Windows to support Git for Windows
 In a Powershell, running as administrator:
