@@ -47,7 +47,7 @@
 	g = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 
 [includeIf "gitdir/i:~/ctma/"]
-	path = ~/.dotfiles/ctma/gitconfig
+	path = ~/.dotfiles/ctma/ctma.gitconfig
 
 [diff]
 	tool = code
