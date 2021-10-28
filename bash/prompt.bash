@@ -14,6 +14,8 @@ COLOR_GRAY='\e[38;5;246m'
 machine_name() {
     if [[ -f $HOME/.name ]]; then
         cat $HOME/.name
+    elif [[ $IS_WSL2 ]]; then
+        echo "$(hostname):${WSL_DISTRO_NAME:-wsl}"
     else
         hostname
     fi
