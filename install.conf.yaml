@@ -1,6 +1,6 @@
 - defaults:
     link:
-      relink: true
+        relink: true
 
 - clean: ['~']
 
@@ -13,6 +13,11 @@
     ~/.inputrc:
     ~/.nvm:
     ~/.shell:
+    ~/.config.omp.json:
+    ~/Documents/Powershell/Microsoft.PowerShell_profile.ps1:
+        path: ./Microsoft.PowerShell_profile.ps1
+    ~/.config/powershell/Microsoft.PowerShell_profile.ps1:
+        path: ./Microsoft.PowerShell_profile.ps1
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
