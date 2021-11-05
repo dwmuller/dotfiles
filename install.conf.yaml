@@ -18,6 +18,7 @@
         path: ./Microsoft.PowerShell_profile.ps1
     ~/.config/powershell/Microsoft.PowerShell_profile.ps1:
         path: ./Microsoft.PowerShell_profile.ps1
+        create: true
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

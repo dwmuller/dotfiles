@@ -8,9 +8,8 @@
  # Check to see if we are currently running "as Administrator"
  if ($myWindowsPrincipal.IsInRole($adminRole))
     {
-    # We are running "as Administrator" - so change the title and background color to indicate this
+    # We are running "as Administrator" - change the title to indicate this
     $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + "(Elevated)"
-    $Host.UI.RawUI.BackgroundColor = "DarkBlue"
     clear-host
     }
  else
@@ -34,29 +33,29 @@
     }
   
 
-function winget-install {
-    # winget downloads and installs even if a package is already installed.
-    $needed = @()
+function Install-With-Winget {
+    # winget downloads and installs even if a package is already installed,
+    # so check first. Also, winget can only install one program per invocation.
     foreach ($pkg in $args) {
-        $listApp = winget list --exact -q $pkg
-        if (![String]::Join("", $listApp).Contains($pkg)) {
-            $needed += $pkg
+        winget list --accept-source-agreements --exact -q $pkg | Out-Null
+        if ($?) {
+            Write-Host "Already installed (winget): $pkg"
         }
-    }
-    $notNeeded = $args | Where-Object { $_ -notin $needed} 
-    Write-Host "Already installed: " @notNeeded
-    if ($needed.Count -ne 0) {
-        winget install --exact --silent @needed 
+        else {
+            Write-Host "Installing (winget): $pkg"
+            winget install --exact --silent  --accept-package-agreements $pkg 
+        }
     }
 }
 
-function choco-install {
+function Install-With-Choco {
     # Chocolatey prints annoying warnings if pkg already installed.
     $installed = (choco list --local --idonly --limitoutput)
-    $needed = $args | Where-Object { $_ -notin  $installed}
-    $notNeeded = $args | Where-Object { $_ -notin $needed} 
-    Write-Host "Already installed: " @notNeeded
+    [array]$needed = $args | Where-Object { $_ -notin  $installed}
+    [array]$notNeeded = $args | Where-Object { $_ -notin $needed}
+    Write-Host "Already installed (choco): $notNeeded"
     if ($needed.Count -ne 0) {
+        Write-Host "Installing (choco): $needed"
         choco install @needed -y --limitoutput
     }
 }
@@ -72,8 +71,8 @@ if (-not (Get-Command "choco.exe" -ErrorAction SilentlyContinue)) {
 # available only there, or is kept more up to date there, or if it's
 # a Microsoft tool.
 
-choco-install git cascadia-code-nerd-font gsudo keepass keepass-plugin-keeanywhere keepass-plugin-keepassotp npiperelay
-winget-install JanDeDobbeleer.OhMyPosh Microsoft.PowerShell Microsoft.WindowsTerminal Microsoft.OneDrive
+Install-With-Choco git cascadia-code-nerd-font gsudo keepass keepass-plugin-keeanywhere keepass-plugin-keepassotp npiperelay
+Install-With-Winget JanDeDobbeleer.OhMyPosh Microsoft.PowerShell Microsoft.WindowsTerminal Microsoft.OneDrive
 
 # Also needed: KeeAgent plugin
 
