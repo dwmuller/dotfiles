@@ -15,13 +15,13 @@
     ~/.shell:
     ~/.config.omp.json:
     ~/Documents/Powershell/Microsoft.PowerShell_profile.ps1:
-        if: [[ -d ~/Documents ]]
+        if: '[ -d ~/Documents ]'
         path: ./Microsoft.PowerShell_profile.ps1
     ~/.config/powershell/Microsoft.PowerShell_profile.ps1:
-        if: [[ -d ~/.config/powershell ]]
+        if: '[ -d ~/.config/powershell ]'
         path: ./Microsoft.PowerShell_profile.ps1
     ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json:
-        if: [[ -d ~/AppData ]]
+        if: '[ -d ~/AppData ]'
         path: ./Microsoft.WindowsTerminal_settings.json
 
 - shell:
