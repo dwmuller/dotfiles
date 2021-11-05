@@ -11,30 +11,24 @@
       "alignment": "left",
       "segments": [
         {
-          "type": "shell",
-          "style": "powerline",
+          "type": "os",
+          "style": "diamond",
           "foreground": "#ffffff",
           "background": "#0077c2",
-                  "properties": {
-                    "mapped_shell_names": {
-                      "pwsh": "PS"
-            }
-          }
+          "leading_diamond": "\uE0B6",
+          "trailing_diamond": ""
         },
         {
-          "type": "root",
-          "style": "powerline",
-          "foreground": "#FFEB3B",
-          "background": "#a313a8",
-          "properties": {
-            "root_icon": "⚡"
-          }
-        },
-        {
-          "type": "os",
+          "type": "shell",
           "style": "plain",
           "foreground": "#ffffff",
-          "background": "transparent"
+          "background": "#0077c2",
+          "properties": {
+            "prefix": " ",
+            "mapped_shell_names": {
+              "pwsh": "PS"
+            }
+          }
         },
         {
           "type": "path",
@@ -67,19 +61,6 @@
           }
         },
         {
-          "type": "executiontime",
-          "style": "diamond",
-          "leading_diamond": "<transparent,#49404f>\uE0B0</>",
-          "trailing_diamond": "\uE0B0",
-          "foreground": "#ffffff",
-          "background": "#49404f",
-          "properties": {
-            "threshold": 0,
-            "style": "dallas",
-            "postfix": "s "
-          }
-        },
-        {
           "type": "exit",
           "style": "powerline",
           "powerline_symbol": "\uE0B0",
@@ -96,26 +77,16 @@
       "alignment": "right",
       "segments": [
         {
-          "type": "session",
+          "type": "executiontime",
           "style": "diamond",
-          "trailing_diamond": "",
-          "leading_diamond": "\uE0C5",
-          "foreground": "#43CCEA",
-          "background": "#29315A",
+          "leading_diamond": "\uE0B6",
+          "trailing_diamond": "\uE0B4",
+          "foreground": "#ffffff",
+          "background": "#49404f",
           "properties": {
-            "postfix": "",
-            "prefix": "  ",
-            "user_info_separator": "<transparent> / </>"
-          }
-        },
-        {
-          "type": "time",
-          "style": "plain",
-          "foreground": "#3EC669",
-          "background": "#29315A",
-          "properties": {
-            "time_format": "15:04:05",
-            "prefix": "<transparent> \uE0BA\uE0BC </>"
+            "threshold": 0,
+            "style": "dallas",
+            "postfix": "s "
           }
         }
       ]
@@ -125,6 +96,27 @@
       "alignment": "left",
       "newline": true,
       "segments": [
+        {
+          "type": "root",
+          "style": "plain",
+          "foreground": "#FFEB3B",
+          "background": "#a313a8",
+          "properties": {
+            "root_icon": "⚡"
+          }
+        },
+        {
+          "type": "session",
+          "style": "diamond",
+          "trailing_diamond": "\uE0B0",
+          "leading_diamond": "",
+          "foreground": "#ffffff",
+          "background": "transparent",
+          "properties": {
+            "postfix": " ",
+            "prefix": ""
+          }
+        },
         {
           "type": "exit",
           "style": "plain",
