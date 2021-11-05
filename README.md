@@ -63,6 +63,13 @@ so that symlinks work:
         ./install
   
 - Fix problems that arise, repeat `./install`
+
+
+**Note:** Use Bash to run the install script, not PowerShell. I am considering
+using the dotbot-crossplatform plugin to make Windows support more robut, but
+for now the installation configuration relies on having a bash-like shell to
+test for directory existence.
+
 ## In a WSL2 (Debian-derived) Linux environment 
 
 First, install software on the Windows host, as per the previous section.
