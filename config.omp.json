@@ -38,9 +38,6 @@
           "foreground": "#ffffff",
           "background": "#01579B",
           "properties": {
-            "home_icon": "\uF7DB",
-            "folder_icon": "\uF6D7",
-            "folder_separator_icon": "<transparent> \uE0BD </>",
             "style": "agnoster_short"
           }
         },
@@ -58,6 +55,26 @@
             "ahead_and_behind_color": "#FFCC80",
             "behind_color": "#B388FF",
             "ahead_color": "#B388FF"
+          }
+        },
+        {
+          "type": "dotnet",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "white",
+          "background": "#1400c8",
+          "properties": {
+            "prefix": " .NET "
+          }
+        },
+        {
+          "type" : "node",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "white",
+          "background": "#1400c8",
+          "properties": {
+            "prefix": " Node "
           }
         },
         {
