@@ -74,7 +74,18 @@
           "foreground": "white",
           "background": "#1400c8",
           "properties": {
-            "prefix": " Node "
+            "prefix": " \uE718 "
+          }
+        },
+        {
+          "type": "python",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "white",
+          "background": "#5545e0",
+          "properties": {
+            "prefix": " \uE235 ",
+            "display_mode": "files"
           }
         },
         {
