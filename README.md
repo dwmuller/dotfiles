@@ -138,6 +138,24 @@ Chocolatey. Set up a shortcut using this Target:
 "C:\Program Files\VcXsrv\xlaunch.exe" -run "C:\Users\danm\dotfiles\config.xlaunch"
 ```
 
+## wsl.conf
+
+Fixes the inability to route WSL 2 traffic through a host's VPN connection.
+
+# To do
+
+## Automate one-time installation of OS packages
+
+Maybe using a dotbot plugin?
+
+Packages installed in WSL Ubuntu while resurrecting my Emacs
+environment:
+
+- emacs
+- emacs-common-non-dfsg, for Emacs documentation
+
+See also [setup-win.ps1](./setup-win.ps1).
+
 # Troubleshooting
 
 ## WSL2: Git doesn't seem to read file modes correctly
