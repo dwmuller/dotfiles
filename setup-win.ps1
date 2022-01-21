@@ -6,14 +6,11 @@
  $adminRole=[System.Security.Principal.WindowsBuiltInRole]::Administrator
   
  # Check to see if we are currently running "as Administrator"
- if ($myWindowsPrincipal.IsInRole($adminRole))
-    {
+ if ($myWindowsPrincipal.IsInRole($adminRole)) {
     # We are running "as Administrator" - change the title to indicate this
     $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + "(Elevated)"
     clear-host
-    }
- else
-    {
+ } else {
     # We are not running "as Administrator" - so relaunch as administrator
     
     # Create a new process object that starts PowerShell
@@ -30,7 +27,7 @@
     
     # Exit from the current, unelevated, process
     exit
-    }
+}
   
 
 function Install-With-Winget {
@@ -40,8 +37,7 @@ function Install-With-Winget {
         winget list --accept-source-agreements --exact -q $pkg | Out-Null
         if ($?) {
             Write-Host "Already installed (winget): $pkg"
-        }
-        else {
+        } else {
             Write-Host "Installing (winget): $pkg"
             winget install --exact --silent  --accept-package-agreements $pkg 
         }
