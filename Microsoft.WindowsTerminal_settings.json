@@ -1,4 +1,5 @@
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": 
     [
@@ -44,6 +45,7 @@
         [
             {
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore"
             },
@@ -55,7 +57,6 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "commandline": "powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": true,
                 "name": "Windows PowerShell",
@@ -69,7 +70,6 @@
                 "startingDirectory": "//wsl$/Ubuntu/home/danm/"
             },
             {
-                "commandline": "cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt",
@@ -81,6 +81,18 @@
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure",
                 "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "guid": "{28508490-e0b4-5f4a-a627-59cb135028a5}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{73a6fa4b-7fef-5826-9036-3a39bf133f5b}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
