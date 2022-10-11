@@ -4,16 +4,16 @@
     "actions": 
     [
         {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
             "command": 
             {
                 "action": "copy",
                 "singleLine": false
             },
             "keys": "ctrl+c"
-        },
-        {
-            "command": "paste",
-            "keys": "ctrl+v"
         },
         {
             "command": "find",
@@ -305,5 +305,6 @@
             "white": "#C0C0C0",
             "yellow": "#808000"
         }
-    ]
+    ],
+    "showTabsInTitlebar": false
 }
