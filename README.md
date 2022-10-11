@@ -66,7 +66,7 @@ so that symlinks work:
 
 
 **Note:** Use Bash to run the install script, not PowerShell. I am considering
-using the dotbot-crossplatform plugin to make Windows support more robut, but
+using the dotbot-crossplatform plugin to make Windows support more robust, but
 for now the installation configuration relies on having a bash-like shell to
 test for directory existence.
 
