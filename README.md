@@ -39,7 +39,7 @@ In a Powershell, running as administrator:
 - Restart your PowerShell
 - Install Git for Windows:
 
-        cinst git -y # installs Git for Windows
+        choco install git -y # installs Git for Windows
 
 In Git Bash as administrator, or with [Developer Mode
 enabled](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/),
