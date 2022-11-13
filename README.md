@@ -41,6 +41,8 @@ In a Powershell, running as administrator:
 
         choco install git -y # installs Git for Windows
 
+Install or update winget, Microsoft's nascent package manager. Find it in the Microsoft Store under the name "App Installer".
+
 In Git Bash as administrator, or with [Developer Mode
 enabled](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/),
 so that symlinks work:
