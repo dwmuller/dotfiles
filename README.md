@@ -5,7 +5,7 @@ My public Linux configuration files, using the
 
 I use KeePass as my password vault, and it's an important part of my
 environment. If you're looking at my dotfiles for inspiration, you can ignore or
-adapts those parts. You may want to come up with a different scheme for setting
+adapt those parts. You may want to come up with a different scheme for setting
 up ssh-agent, or you may use other authentication methods.
 
 Note that your local copy of this repo can be anywhere you like. In the
@@ -51,7 +51,7 @@ so that symlinks work:
 
         mkdir -p ~/projects/dwmuller
         cd ~/projects/dwmuller
-        git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles  # Use https so no creds needed
+        git clone https://github.com/dwmuller/dotfiles.git --recursive ./dotfiles  # Use https so no creds needed
         cd dotfiles
 
 - Run the one-time setup script to install some stuff:
