@@ -51,7 +51,7 @@ so that symlinks work:
 
         mkdir -p ~/projects/dwmuller
         cd ~/projects/dwmuller
-        git clone https://github.com/dwmuller/dotfiles.git --recursive ./dotfiles  # Use https so no creds needed
+        git clone https://github.com/dwmuller/dotfiles.git --recurse-submodules ./dotfiles  # Use https so no creds needed
         cd dotfiles
 
 - Run the one-time setup script to install some stuff:
