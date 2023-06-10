@@ -67,9 +67,7 @@ if (-not (Get-Command "choco.exe" -ErrorAction SilentlyContinue)) {
 # available only there, or is kept more up to date there, or if it's
 # a Microsoft tool.
 
-Install-With-Choco git cascadia-code-nerd-font gsudo keepass keepass-plugin-keeanywhere keepass-plugin-keepassotp npiperelay
+Install-With-Choco git cascadia-code-nerd-font gsudo python keepass keepass-plugin-keeanywhere keepass-plugin-keepassotp keepass-plugin-keeagent keepass-keepasshttp npiperelay
 Install-With-Winget JanDeDobbeleer.OhMyPosh Microsoft.PowerShell Microsoft.WindowsTerminal Microsoft.OneDrive
-
-# Also needed: KeeAgent plugin
 
 Read-Host "Press ENTER to continue"
