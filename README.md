@@ -43,8 +43,11 @@ In a Powershell, running as administrator:
 
 Install or update winget, Microsoft's nascent package manager. Find it in the Microsoft Store under the name "App Installer".
 
-In Git Bash as administrator, or with [Developer Mode
-enabled](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/),
+Symlink support is needed in Windows. You can enable it three ways:
+- Run gpedit and add your user name to Computer Configuration> Software Settings> Security Settings> User Rights Assignment> Create symbolic links.
+- Run as administrator
+- Enable [Developer Mode](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/)
+
 so that symlinks work:
 
 - Pull down this repository and cd to it:
@@ -61,7 +64,7 @@ so that symlinks work:
 - Run ./install to install dotfiles:
   
         export MSYS=winsymlinks:nativestrict  # Use Windows symlinks, fail if not available
-        cd ~/dotfiles
+        cd ~/projects/dotfiles
         ./install
   
 - Fix problems that arise, repeat `./install`
@@ -87,19 +90,23 @@ able to communicate over a VPN, so turn off the VPN while you set things up.
 
         mkdir -p ~/projects/dwmuller
         cd ~/projects/dwmuller
-        git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles  # Use https so no creds needed yet.
+        git clone https://github.com/dwmuller/dotfiles.git --recursive ./dotfiles  # Use https so no creds needed yet.
         cd dotfiles
 
 - If you haven't done so already, create /etc/wsl.conf. This contains some boot-time fixes.
 
-        sudo cp ./wsl.conf /etc/ws.conf
+        sudo cp ./wsl.conf /etc/wsl.conf
 
 If you had to create wsl.conf, you can start the VPN connection now, but you
-have to restart the WSL environment. From PowerShell on the host:
+must first restart the WSL environment. From PowerShell on the host:
 
         wsl -t "Ubuntu"
 
 Now, back in a (possibly new) WSL2 terminal:
+- Install socat:
+
+        sudo apt-get install -y socat
+
 - Run install:
 
         cd ~/projects/dwmuller/dotfiles
