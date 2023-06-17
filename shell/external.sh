@@ -4,15 +4,11 @@
 # We don't want to check mail on our Linux systems
 unset MAILCHECK
 
-# SSH environments
+# SSH agent
 if [ ! -v SSH_AUTH_SOCK ]
 then
+    # We used to set up ssh-agent for WSL2 environments, but no longer.
     case $SYS_TYPE in
-        WSL2)
-            # If SSH_AUTH_SOCK is not set up yet, assume we're to use wsl-ssh-agent.
-            export SSH_AUTH_SOCK=~/.ssh/ssh-agent
-            wsl-ssh-agent
-            ;;
         WINDOWS)
             # Assume we're using KeeAgent on Windows, unless SSH_AUTH_SOCK is already set.
             export SSH_AUTH_SOCK=~/.ssh/keeagent
