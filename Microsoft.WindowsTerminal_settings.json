@@ -328,5 +328,6 @@
             "yellow": "#808000"
         }
     ],
-    "showTabsInTitlebar": false
+    "showTabsInTitlebar": false,
+    "themes": []
 }
