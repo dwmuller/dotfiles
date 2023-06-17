@@ -27,10 +27,9 @@
     
     # Exit from the current, unelevated, process
     exit
-}
-  
+}  
 
-function Install-With-Winget {
+function Install-PackagesUsingWinget {
     # winget downloads and installs even if a package is already installed,
     # so check first. Also, winget can only install one program per invocation.
     foreach ($pkg in $args) {
@@ -44,30 +43,20 @@ function Install-With-Winget {
     }
 }
 
-function Install-With-Choco {
-    # Chocolatey prints annoying warnings if pkg already installed, so avoid re-installing.
-    $installed = (choco list --local --idonly --limitoutput)
-    [array]$needed = $args | Where-Object { $_ -notin  $installed}
-    [array]$notNeeded = $args | Where-Object { $_ -notin $needed}
-    Write-Host "Already installed (choco): $notNeeded"
-    if ($needed.Count -ne 0) {
-        Write-Host "Installing (choco): $needed"
-        choco install @needed -y --limitoutput
-    }
-}
-
-
 # Install chocolatey.
 Set-ExecutionPolicy Bypass -Scope Process -Force;
 if (-not (Get-Command "choco.exe" -ErrorAction SilentlyContinue)) {
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 }
+
 # We use chocolatey by preference, but resort to winget if a package is
 # available only there, or is kept more up to date there, or if it's
-# a Microsoft tool.
+# a Microsoft tool. The chocolatey packages to install are specified in
+# choco-packages.config, along with any installation parameters.
+$chocoConfig = Join-Path $PSScriptRoot "choco-packages.config" -Resolve -ErrorAction Inquire
+(choco install -y --limitoutput $chocoConfig)
 
-Install-With-Choco git cascadia-code-nerd-font gsudo python keepass keepass-plugin-keeanywhere keepass-plugin-keepassotp keepass-plugin-keeagent keepass-keepasshttp npiperelay
-Install-With-Winget JanDeDobbeleer.OhMyPosh Microsoft.PowerShell Microsoft.WindowsTerminal Microsoft.OneDrive
+Install-PackagesUsingWinget JanDeDobbeleer.OhMyPosh Microsoft.PowerShell Microsoft.WindowsTerminal Microsoft.OneDrive
 
 Read-Host "Press ENTER to continue"
