@@ -45,7 +45,7 @@ function Install-With-Winget {
 }
 
 function Install-With-Choco {
-    # Chocolatey prints annoying warnings if pkg already installed.
+    # Chocolatey prints annoying warnings if pkg already installed, so avoid re-installing.
     $installed = (choco list --local --idonly --limitoutput)
     [array]$needed = $args | Where-Object { $_ -notin  $installed}
     [array]$notNeeded = $args | Where-Object { $_ -notin $needed}
