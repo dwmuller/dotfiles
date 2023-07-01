@@ -12,3 +12,10 @@ HISTFILESIZE=2000
 # Check the window size after each command and update the values
 # of LINES and COLUMNS if necessary.
 shopt -s checkwinsize
+
+# Make sure LANG is set to something supporting UTF-8, otherwise Unicode in
+# prompts wreaks havoc with command line editing behavior. Oddly, LANG is left
+# empty by default in Git Bash on Windows. See this article:
+# - https://stackoverflow.com/questions/10651975/unicode-utf-8-with-git-bash
+LANG='C.UTF8'
+
