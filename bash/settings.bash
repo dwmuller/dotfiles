@@ -12,3 +12,9 @@ HISTFILESIZE=2000
 # Check the window size after each command and update the values
 # of LINES and COLUMNS if necessary.
 shopt -s checkwinsize
+
+# Make sure LANG is set to something supporting UTF-8, otherwise the Unicode in
+# prompts wreak havoc with command line editing behavior. See this article:
+# https://stackoverflow.com/questions/10651975/unicode-utf-8-with-git-bash
+LANG='C.UTF8'
+
