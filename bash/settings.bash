@@ -17,5 +17,5 @@ shopt -s checkwinsize
 # prompts wreaks havoc with command line editing behavior. Oddly, LANG is left
 # empty by default in Git Bash on Windows. See this article:
 # - https://stackoverflow.com/questions/10651975/unicode-utf-8-with-git-bash
-LANG='C.UTF8'
+>&2 [ ! -v LANG ] && echo "LANG is not set. Use a UTF-8 supporting language."
 

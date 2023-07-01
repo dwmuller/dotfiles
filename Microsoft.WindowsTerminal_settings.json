@@ -59,7 +59,7 @@
                 "source": "Windows.Terminal.PowershellCore"
             },
             {
-                "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
+                "commandline": "C:\\Program Files\\Git\\bin\\bash.exe --cd-to-home -l -i",
                 "font": 
                 {
                     "face": "CaskaydiaCove Nerd Font Mono"
