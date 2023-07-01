@@ -149,6 +149,5 @@
     }
   ],
   "console_title_template": "{{ .Shell }} {{if .Root}} \u26a1 {{end}}{{.Folder | replace \"~\" \"🏚\" }} @ {{.Host}}",
-  "osc99": true,
   "version": 2
 }
