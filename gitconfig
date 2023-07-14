@@ -46,6 +46,9 @@
 	# View a pretty git log with branch tree
 	g = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 
+	# Compact commit log, esp. handy for squashing commits.
+	slog = log --graph --all --topo-order --pretty='format:%h %ai %s%d (%an)'
+
 [includeIf "gitdir/i:~/ctma/"]
 	path = ~/.dotfiles/ctma/ctma.gitconfig
 
