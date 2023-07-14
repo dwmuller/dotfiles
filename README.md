@@ -4,11 +4,11 @@ My public Linux configuration files, using the
 [DotBot](https://github.com/anishathalye/dotbot) framework.
 
 Note that your local copy of this repo can be anywhere you like. In the
-instructions below, I assume it's in ~/dotfiles. 
+instructions below, I assume it's in ~/dotfiles.
 
 ## Bootstrap  a new environment
 
-### A simple Linux (Debian-derived) environment:
+### A simple Linux (Debian-derived) environment
 
 In a shell, pull down this repository and run install:
 
@@ -82,7 +82,7 @@ using the dotbot-crossplatform plugin to make Windows support more robust, but
 for now the installation configuration relies on having a bash-like shell to
 test for directory existence.
 
-## In a WSL2 (Debian-derived) Linux environment 
+## In a WSL2 (Debian-derived) Linux environment
 
 First, install software on the Windows host, as per the previous section.
 
@@ -190,11 +190,16 @@ Fixes the inability to route WSL 2 traffic through a host's VPN connection.
 
 ## Troubleshooting
 
+### QT5 apps (like KeePassXC) scale incorrectly on some displays
+
+(Experimental.) On Windows systems where this is an issue, set the environment
+variable QT_AUTO_SCREEN_SCALE_FACTOR=1.
+
 ### WSL2: Git doesn't seem to read file modes correctly
 
 Make sure that you've installed git in the Linux subsystem, and that you aren't
 accidentally running Git for Windows. Use `which git` to check where you're
-getting git from. 
+getting git from.
 
 ### WSL2: ssh-agent forwarding is not working (wsl-ssh-agent)
 
