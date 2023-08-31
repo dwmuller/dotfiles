@@ -14,6 +14,10 @@
     ~/.nvm:
     ~/.shell:
     ~/.config.omp.json:
+    ~/OneDrive/Documents/Powershell/Microsoft.PowerShell_profile.ps1:
+        if: '[ -d ~/OneDrive/Documents ]'
+        path: ./Microsoft.PowerShell_profile.ps1
+        create: true
     ~/Documents/Powershell/Microsoft.PowerShell_profile.ps1:
         if: '[ -d ~/Documents ]'
         path: ./Microsoft.PowerShell_profile.ps1
