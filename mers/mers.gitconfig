@@ -1,3 +1,6 @@
 [user]
 	name = Dan Muller
 	email = dmuller@mersofmich.com
+
+[url "https://mersdevops@dev.azure.com/mersdevops/Cybersecurity/_git/"]
+	insteadOf = cybersec:

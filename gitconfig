@@ -52,7 +52,7 @@
 [includeIf "gitdir/i:~/ctma/"]
 	path = ~/.dotfiles/ctma/ctma.gitconfig
 
-[includeIf "gitdir/i:~/mers/"]
+[includeIf "gitdir/i:mers/"]
 	path = ~/.dotfiles/mers/mers.gitconfig
 
 [diff]
