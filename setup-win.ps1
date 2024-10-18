@@ -48,7 +48,7 @@ function Install-PackagesUsingWinget {
 # We use winget by preference.
 Install-PackagesUsingWinget Git.Git, gerardog.gsudo, JanDeDobbeleer.OhMyPosh,
     Microsoft.PowerShell, Microsoft.WindowsTerminal, albertony.npiperelay,
-    Python.Python.3.13,
+    Anaconda.Andaconda3, # Alternative Python distro, installs easily for user
     Microsoft.VisualStudioCode
 
 # Install chocolatey.
@@ -58,9 +58,9 @@ if (-not (Get-Command "choco.exe" -ErrorAction SilentlyContinue)) {
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 }
 
-# We use chocolatey by preference, but resort to winget if a package is
-# available only there, or is kept more up to date there, or if it's
-# a Microsoft tool. The chocolatey packages to install are specified in
+# We resort to chocolatey if a package is available only there,
+# or is kept more up to date there.
+# The chocolatey packages to install are specified in
 # choco-packages.config, along with any installation parameters.
 $chocoConfig = Join-Path $PSScriptRoot "choco-packages.config" -Resolve -ErrorAction Inquire
 (choco install -y --limitoutput $chocoConfig)
