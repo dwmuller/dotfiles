@@ -14,18 +14,6 @@
     ~/.nvm:
     ~/.shell:
     ~/.config.omp.json:
-    ~/OneDrive/Documents/Powershell/Microsoft.PowerShell_profile.ps1:
-        if: '[ -d ~/OneDrive/Documents ]'
-        path: ./Microsoft.PowerShell_profile.ps1
-        create: true
-    ~/Documents/Powershell/Microsoft.PowerShell_profile.ps1:
-        if: '[ -d ~/Documents ]'
-        path: ./Microsoft.PowerShell_profile.ps1
-        create: true
-    ~/.config/powershell/Microsoft.PowerShell_profile.ps1:
-        if: '[ -d ~/.config]'
-        path: ./Microsoft.PowerShell_profile.ps1
-        create: true
     ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json:
         if: '[ -d ~/AppData ]'
         path: ./Microsoft.WindowsTerminal_settings.json
@@ -34,4 +22,5 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - [bash -c ~/.dotfiles/bin/wsl/link-winhome, Linking winhome in WSL2]
+    - [bash -c "type -p pwsh && p=$(pwsh -Command 'Split-Path $PROFILE') && (mkdir -p \"$p\"; ln -s -f ./Microsoft.PowerShell_profile.ps1 \"$p\")", PS profile for current user/current host]
 
