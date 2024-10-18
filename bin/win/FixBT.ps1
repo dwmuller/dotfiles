@@ -47,14 +47,24 @@ function Bluetooth {
     Await ($bluetooth.SetStateAsync($BluetoothStatus)) ([Windows.Devices.Radios.RadioAccessStatus]) | Out-Null
 }
 
+function Wait ($activity, $secondsLeft) {
+    while ($secondsLeft-- -gt 0) {
+        Write-Progress -Activity $activity -SecondsRemaining $secondsLeft
+        Start-Sleep 1
+    }
+}
 # The delays seem necessary, although they could probably be tweaked.
+Write-Progress -Activity "Turning Bluetooth off ..." 
 Bluetooth Off
-Start-Sleep 2
+#Start-Sleep 2
+Write-Progress -Activity "Restarting Bluetooth Support Service ..."
 $svc = Restart-Service -Name "Bluetooth Support Service" -Force -PassThru
+$attempt = 1
 do {
-    Write-Host "Waiting for service restart."
-    Start-Sleep 2
+    Write-Progress "Confirming service restart ..." -Status "Attempt $attempt" 
+    Start-Sleep 1
 } until ($svc.Status -eq "Running")
-Start-Sleep 2
+Wait "Waiting for service to settle before turning Bluetooth on ..." 8
 Bluetooth On
-Start-Sleep 2
+Write-Host "Bluetooth started. Give devices some time to reconnect."
+Read-Host -Prompt "Press Enter to exit"
