@@ -7,8 +7,7 @@ $User = [Security.Principal.WindowsIdentity]::GetCurrent();
 $isAdmin = (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)  
 
 function New-ItemLink {
-    Param([string] $link)
-    Param([string] $target)
+    Param([string] $link, [string] $target)
     $linkPath = Split-Path -Path $link
     $linkName = Split-Path -Path $link -Leaf
     $targetItem = Get-Item -Path (Join-Path $PSScriptRoot $target -Resolve)
