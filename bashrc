@@ -4,13 +4,13 @@
 # BASH-specific definitions, and for things like aliases and functions
 # which are not inherited by child processes.
 
-source ~/.shell/introspect.sh
-source ~/.shell/functions.sh
-source ~/.bash/settings.bash
-source ~/.shell/bootstrap.sh
-source ~/.shell/external.sh
-source ~/.shell/aliases.sh
-source ~/.bash/prompt.bash
-source ~/.bash/completions.bash
+source ~/.dotfiles/shell/introspect.sh
+source ~/.dotfiles/shell/functions.sh
+source ~/.dotfiles/bash/settings.bash
+source ~/.dotfiles/shell/bootstrap.sh
+source ~/.dotfiles/shell/external.sh
+source ~/.dotfiles/shell/aliases.sh
+source ~/.dotfiles/bash/prompt.bash
+source ~/.dotfiles/bash/completions.bash
 source ~/.nvm/nvm.sh
 source ~/.nvm/bash_completion

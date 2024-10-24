@@ -48,21 +48,20 @@ function Install-PackagesUsingWinget {
 # We use winget by preference.
 Install-PackagesUsingWinget Git.Git, gerardog.gsudo, JanDeDobbeleer.OhMyPosh,
     Microsoft.PowerShell, Microsoft.WindowsTerminal, albertony.npiperelay,
-    Anaconda.Andaconda3, # Alternative Python distro, installs easily for user
     Microsoft.VisualStudioCode
 
-# Install chocolatey.
-Set-ExecutionPolicy Bypass -Scope Process -Force;
-if (-not (Get-Command "choco.exe" -ErrorAction SilentlyContinue)) {
-    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
-    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+# Install Scoop.
+#
+# I switched to Scoop from Chocolatey because Scoop reputedly prefers portable versions of apps
+# and does a better job of installing without admin privs.
+if (!(Get-Command Scoop -ErrorAction SilentlyContinue)) {
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+    scoop bucket add extras
+    scoop bucket add nerd-fonts
 }
 
-# We resort to chocolatey if a package is available only there,
-# or is kept more up to date there.
-# The chocolatey packages to install are specified in
-# choco-packages.config, along with any installation parameters.
-$chocoConfig = Join-Path $PSScriptRoot "choco-packages.config" -Resolve -ErrorAction Inquire
-(choco install -y --limitoutput $chocoConfig)
+scoop install keepass keepass-plugin-keeanywhere keepass-plugin-keepasshttp keepass-plugin-keetraytotp
+scoop install Cascadia-Code
+scoop install python # Note the .reg file which must be run after this installation.
 
 Read-Host "Press ENTER to continue"

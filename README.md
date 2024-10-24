@@ -14,73 +14,57 @@ In a shell, pull down this repository and run install:
 
 ```bash
 sudo apt install git
-git clone https://github.com/dwmuller/dotfiles.git --recursive ~/dotfiles # Use https so no creds needed yet.
-cd ~/dotfiles
-./install
+git clone https://github.com/dwmuller/dotfiles.git --recursive ~/.dotfiles # Use https so no creds needed yet.
+cd ~/.dotfiles
+./setup-bash
 ```
 
 Fix problems that arise, repeat `./install`
 
 ### On Windows, to support Git for Windows
 
-In a Powershell, running as administrator, perform the following steps.
-
-**[Install chocolatey](https://chocolatey.org/install):**
-
-```ps
-Set-ExecutionPolicy Bypass -Scope Process -Force;
-if (-not (Get-Command "choco.exe" -ErrorAction SilentlyContinue)) {
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
-        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-}
-```
-
-**Restart your PowerShell.**
-
-**Install Git for Windows:**
+A. **Install Git for Windows:**
 
 ```bash
-choco install git -y # installs Git for Windows
+winget install Git.Git  # Installs Git for Windows for current user
 ```
 
-**Install or update winget**, Microsoft's nascent package manager. Find it in the Microsoft Store under the name "App Installer".
-
-**Enable symlink support.** You can do this in any one of three ways:
+B. **Enable symlink support.** You can do this in any of three ways if you have admin access. If you don't have admin access, skip this.
 
 - Run gpedit and add your user name to Computer Configuration> Software Settings> Security Settings> User Rights Assignment> Create symbolic links.
 - Run as administrator
 - Enable [Developer Mode](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/)
 
-**Pull down this repository and cd to it:**
+C. **Start a Bash shell**
+D. **Pull down this repository and cd to it:**
 
 ```bash
-mkdir -p ~/projects/dwmuller
-cd ~/projects/dwmuller
+cd ~
 # Use https so no creds needed
-git clone https://github.com/dwmuller/dotfiles.git --recurse-submodules ./dotfiles  
-cd dotfiles
+git clone https://github.com/dwmuller/dotfiles.git --recurse-submodules ./.dotfiles
+cd .dotfiles
 ```
 
-**Run the one-time setup script** to install some stuff:
+E. **Run the one-time setup script** to install some stuff:
 
 ```bash
 powershell ./setup-win.ps1
 ```
 
-**Run ./install** to install dotfiles:
+Note that this will print out the path to a .reg file that you should run to register
+the Python interpreter that was installed.
+
+F. **Restart the shell** so that programs installed by initial setup are available.
+
+G. **Run ./setup-bash** to configure the Bash environment and some common dotfiles:
   
 ```bash
 export MSYS=winsymlinks:nativestrict  # Use Windows symlinks, fail if not available
-cd ~/projects/dotfiles
-./install
+cd ~/.dotfiles
+./setup-bash
 ```
 
-Fix any problems that arise, repeat `./install`
-
-**Note:** Use Bash to run the install script, not PowerShell. I am considering
-using the dotbot-crossplatform plugin to make Windows support more robust, but
-for now the installation configuration relies on having a bash-like shell to
-test for directory existence.
+Fix any problems that arise, repeat `./setup-bash`
 
 ## In a WSL2 (Debian-derived) Linux environment
 
@@ -98,10 +82,9 @@ sudo apt install git
 **Pull down this repository:**
 
 ```bash
-mkdir -p ~/projects/dwmuller
-cd ~/projects/dwmuller
-git clone https://github.com/dwmuller/dotfiles.git --recursive ./dotfiles  # Use https so no creds needed yet.
-cd dotfiles
+cd ~
+git clone https://github.com/dwmuller/dotfiles.git --recursive ./.dotfiles  # Use https so no creds needed yet.
+cd .dotfiles
 ```
 
 If you haven't done so already, **create /etc/wsl.conf**. This contains some boot-time fixes.
@@ -119,14 +102,14 @@ wsl -t "Ubuntu"
 
 Now, back in a (possibly new) WSL2 terminal:
 
-**Run install:**
+**Run setup-bash:**
 
 ```bash
-cd ~/projects/dwmuller/dotfiles
-./install
+cd ~/.dotfiles
+./setup-bash
 ```
 
-Fix any problems that arise, and repeat `./install`
+Fix any problems that arise, and repeat `./setup-bash`
 
 ## All environments
 
@@ -158,11 +141,11 @@ that this uses a URL alias for GitHub, defined in my .gitconfig.)
 git remote set-url origin gh:dwmuller/dotfiles
 ```
 
-To activate any changes in Bash after running './install', without restarting
+To activate any changes in Bash after running './setup-bash', without restarting
 the shell:
 
 ```bash
-. ~/bashrc
+source ~/bashrc
 ```
 
 ## To-do
@@ -213,7 +196,9 @@ attempts to connect to the agent.
 ### Git for Windows: Links fail during install
 
 Check to make sure that MSYS is defined as described in the instructions, and
-that you're running ./install as admin.
+that you're running ./setup-bash as admin or as a user with permission to create
+symbolic links. Otherwise, setup-bash tries to use hard links for files and 
+junctions for directories.
 
 ### Visual Studio Code in WSL
 

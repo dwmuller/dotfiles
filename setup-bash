@@ -1,0 +1,100 @@
+#!/bin/bash
+set -e
+
+SOURCE=${BASH_SOURCE[0]}
+while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DOT_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+  SOURCE=$(readlink "$SOURCE")
+  [[ $SOURCE != /* ]] && SOURCE=$DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DOT_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+# Figure out how to link files in th is environment
+USE_SYMLINKS=1
+test_link="test_symlink"
+test_target="."
+if [[ $OSTYPE == "msys" || $OSTYPE == "cygwin" ]]; then
+    echo "Testing symlink creation"
+    export MSYS="$MSYS winsymlinks:nativestrict"
+    export CYGWIN="$CYGWIN winsymlinks:nativestrict"
+    set +e
+    ln -s $test_target $test_link > /dev/null 2>&1
+    ln_result=$?
+    set -e
+    if [ $ln_result -eq 0 ]; then
+        # Cleanup
+        rm "$test_link"
+        echo "Current user can create symbolic links."
+        USE_SYMLINKS=0
+    else
+        echo "Current Windows user is unable to create symbolic links."
+    fi
+else
+    # Assume symlinks are available.
+    USE_SYMLINKS=0
+fi
+
+UNDO_SCRIPT="$DOT_DIR/.local/undo-$(date +"%Y-%m-%d_%H-%M-%S")"
+TEST_ONLY=1
+
+create_link() {
+    local target=$(realpath $1)
+    local desired_link=$2
+
+    if [ $USE_SYMLINKS -eq 0 ]; then
+        do="ln -s \"$target\" \"$desired_link\""
+        undo="unlink \"$desired_link\""
+    else
+        if [ -d "$target" ]; then
+            do="(if [ -d \"$desired_link\" ]; then rm \"$desired_link\"; fi) && cmd //c mklink //J \"$(cygpath -w $desired_link)\" \"$(cygpath -w $target)\""
+            undo="rm \"$desired_link\""
+        else
+            do="(if [ -f \"$desired_link\" ]; then rm \"$desired_link\"; fi) && cmd //c mklink //H \"$(cygpath -w $desired_link)\" \"$(cygpath -w $target)\""
+            undo="rm \"$desired_link\""
+        fi
+    fi
+    echo $do
+    if [ $TEST_ONLY -ne 0 ]; then
+        (eval $do) && (echo $undo >> $UNDO_SCRIPT)
+    fi
+}
+
+provide_from() {
+    local link=$1
+    local target=$2
+    mkdir -p "$(dirname $link)" 
+    create_link $target $link
+}
+
+provide() {
+    local link=$1
+    local link_base=$(basename $link)
+    local target_base=${link_base#.}
+    provide_from $link "$DOT_DIR/$target_base"
+}
+
+while getopts "n" opt; do
+    case $opt in
+        n ) TEST_ONLY=0 ;;
+    esac
+done
+
+if [ $TEST_ONLY -ne 0 ]; then
+    mkdir -p $DOT_DIR/.local
+    touch $UNDO_SCRIPT
+    echo "#!/bin/bash" >> $UNDO_SCRIPT
+fi
+
+provide ~/.bashrc
+provide ~/.bash_profile
+provide ~/.gitconfig
+provide ~/.inputrc
+provide ~/.nvm
+provide ~/.config.omp.json
+provide ~/.emacs.el
+#if [[ $OSTYPE == "msys" || $OSTYPE == "cygwin" ]]; then
+#    provide_from "$LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" Microsoft.WindowsTerminal_settings.json
+#fi
+
+echo "Linking winhome in WSL2."
+~/.dotfiles/bin/wsl/link-winhome

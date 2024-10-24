@@ -13,7 +13,7 @@ then
     SYS_TYPE="WINDOWS"
 elif [ $IS_CYGWIN ]
 then
-    SYS_TYPE="WINDOW"
+    SYS_TYPE="WINDOWS"
 else
     SYS_TYPE="UNKNOWN"
     echo "System type is unrecognized by dotfiles." >&2
