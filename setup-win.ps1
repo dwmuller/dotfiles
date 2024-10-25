@@ -48,7 +48,7 @@ function Install-PackagesUsingWinget {
 # We use winget by preference.
 Install-PackagesUsingWinget Git.Git, gerardog.gsudo, JanDeDobbeleer.OhMyPosh,
     Microsoft.PowerShell, Microsoft.WindowsTerminal, albertony.npiperelay,
-    Microsoft.VisualStudioCode
+    Microsoft.VisualStudioCode Microsoft.PowerToys
 
 # Install Scoop.
 #
