@@ -42,7 +42,7 @@ create_link() {
     local desired_link=$2
 
     if [ $USE_SYMLINKS -eq 0 ]; then
-        do="ln -s \"$target\" \"$desired_link\""
+        do="ln -f -s \"$target\" \"$desired_link\""
         undo="unlink \"$desired_link\""
     else
         if [ -d "$target" ]; then
