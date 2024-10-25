@@ -3,16 +3,19 @@ if ($PSVersionTable.PSEdition -ne 'Core') {
     Exit 1
 }
 
-$User = [Security.Principal.WindowsIdentity]::GetCurrent();
-$isAdmin = (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)  
+New-Item -Force -ItemType SymbolicLink -Path $PSScriptRoot -Name "./test_symlink" -Value "." -ErrorAction SilentlyContinue > $null
+$useSymlinks = if ($?) {$true} else {$false}
+if ($useSymlinks) {
+    Remove-Item -Force "./test_symlink"
+}
 
 function New-ItemLink {
     Param([string] $link, [string] $target)
     $linkPath = Split-Path -Path $link
     $linkName = Split-Path -Path $link -Leaf
     $targetItem = Get-Item -Path (Join-Path $PSScriptRoot $target -Resolve)
-    if ($isAdmin) {
-        New-Item -Force -ItemType SymbolicLink -Path $linkPath -Name $linkName -Value $targetItem
+    if ($useSymlinks) {
+        New-Item -Force -ItemType SymbolicLink -Path $linkPath -Name $linkName -Value $targetItem -ErrorAction SilentlyContinue
     }
     elseif (Test-Path $target -PathType Container) {
         New-Item -Force -ItemType Junction -Path $linkPath -Name $linkName -Value $targetItem
