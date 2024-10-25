@@ -92,9 +92,6 @@ provide ~/.inputrc
 provide ~/.nvm
 provide ~/.config.omp.json
 provide ~/.emacs.el
-#if [[ $OSTYPE == "msys" || $OSTYPE == "cygwin" ]]; then
-#    provide_from "$LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" Microsoft.WindowsTerminal_settings.json
-#fi
 
 echo "Linking winhome in WSL2."
 ~/.dotfiles/bin/wsl/link-winhome
