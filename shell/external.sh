@@ -5,16 +5,16 @@
 unset MAILCHECK
 
 # SSH agent
-if [ ! -v SSH_AUTH_SOCK ]
-then
-    # We used to set up ssh-agent for WSL2 environments, but no longer.
-    case $SYS_TYPE in
-        WINDOWS)
-            # Assume we're using KeeAgent on Windows, unless SSH_AUTH_SOCK is already set.
-            export SSH_AUTH_SOCK=~/.ssh/keeagent
-        ;;
-    esac
-fi
+# if [ ! -v SSH_AUTH_SOCK ]
+# then
+#     # We used to set up ssh-agent for WSL2 environments, but no longer.
+#     case $SYS_TYPE in
+#         WINDOWS)
+#             # Assume we're using KeeAgent on Windows, unless SSH_AUTH_SOCK is already set.
+#             export SSH_AUTH_SOCK=~/.ssh/keeagent
+#         ;;
+#     esac
+# fi
 
 # Symlinks in Windows environments.
 if [ $IS_MSYS ]
