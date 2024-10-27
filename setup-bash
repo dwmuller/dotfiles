@@ -42,7 +42,7 @@ create_link() {
     local desired_link=$2
 
     if [ $USE_SYMLINKS -eq 0 ]; then
-        do="ln -f -s \"$target\" \"$desired_link\""
+        do="ln -T -f -s \"$target\" \"$desired_link\""
         undo="unlink \"$desired_link\""
     else
         if [ -d "$target" ]; then
@@ -73,9 +73,9 @@ provide() {
     provide_from $link "$DOT_DIR/$target_base"
 }
 
-while getopts "n" opt; do
+while getopts "t" opt; do
     case $opt in
-        n ) TEST_ONLY=0 ;;
+        t ) TEST_ONLY=0 ;;
     esac
 done
 

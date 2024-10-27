@@ -20,15 +20,26 @@ cd ~/.dotfiles
 ./setup-bash
 ```
 
-### On Windows, to support Git for Windows
+### On Windows
 
-#### A. Install Git for Windows:
+#### 1. Install Git for Windows
 
-```bash
-winget install Git.Git  # Installs Git for Windows for current user
+In a PowerShell session (you can use Windows PowerShell):
+
+```ps
+irm get.scoop.sh | Invoke-Expression # Installs Scoop pkg mgr
+scoop install git # Installs "portable" version of Scoop
 ```
 
-#### B. Enable symlink support
+In order to avoid problems running the version of Bash that comes with that
+installation, open Settings, search for "manage app execution aliases", find
+"Windows Subsystem for Linux - bash.exe", and turn it off.
+
+After installing Windows Terminal later, you may need to add a profile for Bash.
+(The portable version is not detected automatically.) The command line should be
+`bash.exe --login -i`.
+
+#### 2. Enable symlink support
 
 You can do this in any of three ways if you have admin access.
 
@@ -40,32 +51,28 @@ You can do this in any of three ways if you have admin access.
 If you can't have admin access, skip this step. On Windows, the installation
 will use junctions (for directories) and hard links (for files) instead.
 
-#### C. Start a Bash shell
+#### 3. Pull down this repository and cd to it
 
-#### D. Pull down this repository and cd to it
-
-```bash
-cd ~
+```ps
+cd $HOME
 # Use https so no creds needed
 git clone https://github.com/dwmuller/dotfiles.git --recurse-submodules .dotfiles
 cd .dotfiles
 ```
 
-#### E. Run the one-time Windows setup script
+#### 4. Run the one-time Windows setup script
 
 This installs a variety of software and fonts using both winget and scoop.
 
-```bash
-cd ~/.dotfiles
-powershell ./setup-win.ps1
+```ps
+cd $HOME\.dotfiles
+powershell .\setup-win.ps1
 ```
 
 Note that this will print out the path to a .reg file that you should run (e.g.
 from Explorer) to register the Python interpreter that was installed.
 
-#### F. Restart the shell
-
-#### G. Run ./setup-bash
+#### 5. Run ./setup-bash in a Bash shell
 
 This configures the Bash environment and some common apps:
   
@@ -74,7 +81,7 @@ cd ~/.dotfiles
 ./setup-bash
 ```
 
-#### H. Miscellany
+#### 6. Miscellany
 
 Configure Windows Terminal profile defaults to use the Cascadia Mono NF font,
 which was installed by setup-win.ps1. This is needed to correctly render some of
