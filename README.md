@@ -22,6 +22,20 @@ cd ~/.dotfiles
 
 ### On Windows
 
+By default on recent Windows systems, OneDrive may be configured to "back up" your Documents folder
+(under %USERPROFILE%\Documents), redirecting "My Documents" to a folder under %USERPROFILE%\OneDrive*.
+(The OneDrive folder may have suffix.) This is a bad setup because many programs, and most notably
+PowerShell, put a lot of directories and files under Documents that should really be local.
+
+To undo this, go into OneDrive's Settings> Sync and backup> Manage backup, and toggle Documents off.
+Then use Task Manager to restart Explorer so that Explorer shows the correct "Documents" folder. Note
+that OneDrive will continue to sync files in its own folder, but now everything you place in your
+standard Documents folder will be local. Adjust habits accordingly - be aware of what you want synced
+to the cloud and what should be local.
+
+You should fix this before proceeding with PowerShell configuration. Restart any PowerShell processes
+afterwards.
+
 #### 1. Install Git for Windows
 
 In a PowerShell session (you can use Windows PowerShell):
@@ -217,7 +231,7 @@ attempts to connect to the agent.
 
 Check to make sure that MSYS is defined as described in the instructions, and
 that you're running ./setup-bash as admin or as a user with permission to create
-symbolic links. Otherwise, setup-bash tries to use hard links for files and 
+symbolic links. Otherwise, setup-bash tries to use hard links for files and
 junctions for directories.
 
 ### Visual Studio Code in WSL
