@@ -13,6 +13,7 @@ function Add-PathLast([string]$path) {
 }
 
 Add-PathFirst "$HOME\.dotfiles\bin\win"
+Add-PathFirst "$HOME\.dotfiles\bin"
 Add-PathFirst "$HOME\bin"
 
 oh-my-posh --init --shell pwsh --config ~/.config.omp.json | Invoke-Expression
