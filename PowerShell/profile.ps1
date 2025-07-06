@@ -13,5 +13,7 @@ function Add-PathLast([string]$path) {
 
 Add-PathFirst "$HOME\.dotfiles\bin\win"
 Add-PathFirst "$HOME\bin"
-
+if (Test-Path Env:\GIT_INSTALL_ROOT) {
+    Add-PathLast "$Env:GIT_INSTALL_ROOT\usr\bin"
+}
 oh-my-posh --init --shell pwsh --config ~/.config.omp.json | Invoke-Expression
