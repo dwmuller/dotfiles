@@ -8,7 +8,7 @@
 [github]
 	user = dwmuller
 
-[url "git@github.com:"]
+[url "https://github.com/"]
 	insteadOf = gh:
 
 [url "https://gitlab.com/"]
@@ -63,3 +63,5 @@
 
 [init]
 	defaultBranch = main
+[credential]
+	helper = manager
