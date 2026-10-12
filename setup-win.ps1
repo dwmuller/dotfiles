@@ -61,8 +61,12 @@ if (!(Get-Command Scoop -ErrorAction SilentlyContinue)) {
     scoop bucket add nerd-fonts
 }
 
-scoop install keepass keepass-plugin-keeanywhere keepass-plugin-keepasshttp keepass-plugin-keetraytotp
+# I use keepass in some but not all environments. Note that the base KeePass program is also available via winget now.
+#scoop install keepass keepass-plugin-keeanywhere keepass-plugin-keepasshttp keepass-plugin-keetraytotp
+
+scoop add bucket nerd-fonts
 scoop install Cascadia-Code
+
 scoop install python # Note the .reg file which must be run after this installation.
 
 Read-Host "Press ENTER to continue"
